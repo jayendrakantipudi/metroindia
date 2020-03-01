@@ -120,7 +120,10 @@ const { User, validate } = require("../../models/User");
 
 
 router.get("/checking", async(req, res) => {
-  res.send("It's Working....!!!");
+
+  var users = await User.find();
+
+  res.send(users);
 })
 
 router.post("/register", async (req, res) => {
