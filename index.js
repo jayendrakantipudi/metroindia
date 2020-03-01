@@ -27,8 +27,10 @@ if (!config.get("jwtPrivateKey")) {
   process.exit(1);
 }
 
+const MONGO_PORT = process.env.MONGODB_URI || "mongodb://localhost:27017/metro";
+
 mongoose
-  .connect("mongodb://localhost:27017/metro", {
+  .connect(MONGO_PORT, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }) // only in development environment
