@@ -1,1 +1,2 @@
+web: set metro_jwtPrivateKey="metro"
 web: npm start
