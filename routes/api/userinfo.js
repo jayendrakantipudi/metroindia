@@ -119,7 +119,9 @@ const { User, validate } = require("../../models/User");
 // });
 
 
-
+router.get("/checking", async(req, res) => {
+  res.send("It's Working....!!!");
+})
 
 router.post("/register", async (req, res) => {
   console.log(req.file);
