@@ -26,6 +26,10 @@ router.post("/login", async (req, res) => {
     return res.send("Invalid Email ");
   }
 
+  if (!user.isEmailVerified){
+    return res.send("Please verify the email first!");
+  }
+
   const validPassword = await bcrypt.compare(req.body.password, user.password);
 
   if (!validPassword) {
