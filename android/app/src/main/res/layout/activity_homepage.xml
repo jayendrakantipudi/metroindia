@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="@drawable/metro"
+    tools:context=".HomepageActivity">
+
+    <RelativeLayout
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000">
+
+
+        <TextView
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="135dp"
+            android:layout_marginLeft="150dp"
+            android:text="City"
+            android:textColor="@android:color/white"
+            android:textSize="26sp" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="350dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="250dp"
+            android:background="@android:color/white"
+            android:text="select one"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btn_city_next"
+            android:background="#431F63"
+            android:text="Next"
+            android:textSize="22sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="350dp"
+            android:layout_width="350dp"
+            android:layout_height="60dp" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
