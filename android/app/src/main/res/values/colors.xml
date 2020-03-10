@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="myTextColor">#AFAFAF</color>
+
+    <color name="black_overlay">#66000000</color>
+
+    <color name="actionBar_baseColor">#212121</color>
+    <color name="actionBar_navColor">#000000</color>
+
+
+</resources>
