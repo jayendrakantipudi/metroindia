@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Metro India</string>
+    <string name="create_account">Don\'t have an account? Sign up!</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="f_name">First Name</string>
+    <string name="log_in">Already a member? Log in!</string>
+    <string name="metro_india">Metro India</string>
+
+
+    <string-array name="names">
+        <item>SELECT ONE</item>
+        <item>Hyderabad</item>
+        <item>Bangalore</item>
+        <item>Delhi</item>
+        <item>Chennai</item>
+        <item>Mumbai</item>
+        <item>Ahmedabad</item>
+        <item>Kolkata</item>
+        <item>Jaipur</item>
+    </string-array>
+
+</resources>
