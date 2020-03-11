@@ -181,7 +181,7 @@ router.post("/register", async (req, res) => {
             text:
               "Hello,\n\n" +
               "Please verify your account by clicking the link: \n " +
-              "metrotest.herokuapp.com" + //Should be changed later http://localhost:5000
+              "https://metrotest.herokuapp.com" + //Should be changed later http://localhost:5000
               "/api/userinfo/confirmation/" +
               token +
               "\n"
