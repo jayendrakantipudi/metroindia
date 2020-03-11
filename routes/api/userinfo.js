@@ -184,7 +184,7 @@ router.post("/register", async (req, res) => {
               // "metrotest.herokuapp.com" + //Should be changed later
               "/api/userinfo/confirmation/" +
               token +
-              ".\n"
+              "\n"
           };
           transporter.sendMail(mailOptions, function(err) {
             if (err) {
