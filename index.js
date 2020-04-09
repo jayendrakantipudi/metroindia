@@ -10,6 +10,11 @@ var passport=require('passport');
 const userinfo = require("./routes/api/userinfo");
 const auth = require("./routes/api/auth");
 
+const city = require("./routes/api/city");
+const city_stations = require("./routes/api/city_stations");
+const train = require("./routes/api/train");
+const booking = require("./routes/api/booking");
+
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -47,6 +52,11 @@ app.use("/api/auth", auth);
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
+
+app.use("/api/city", city);
+app.use("/api/station", city_stations);
+app.use("/api/train", train)
+app.use("/api/booking", booking)
 
 
 const port = process.env.PORT || 5000;
