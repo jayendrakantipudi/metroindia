@@ -1,4 +1,4 @@
-const { City } = require("../../models/City");
+const { City } = require("../../models/city");
 const express = require("express");
 const router = express.Router();
 
