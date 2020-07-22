@@ -14,6 +14,8 @@ const city = require("./routes/api/city");
 const city_stations = require("./routes/api/city_stations");
 const train = require("./routes/api/train");
 const booking = require("./routes/api/booking");
+const metroadmin = require("./routes/api/metroadmin");
+const morgan = require('morgan')
 
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,6 +23,12 @@ app.use(bodyParser.json());
 
 //file upload static
 app.use(express.static("uploads"));
+
+app.set('view engine', 'pug');
+app.set('views', './views')
+
+//Request info 
+app.use(morgan('tiny'))
 
 //DB config
 
@@ -56,7 +64,10 @@ require('./config/passport')(passport);
 app.use("/api/city", city);
 app.use("/api/station", city_stations);
 app.use("/api/train", train)
-app.use("/api/booking", booking)
+app.use("/api/booking", booking);
+
+
+app.use("/metroadmin", metroadmin);
 
 
 const port = process.env.PORT || 5000;

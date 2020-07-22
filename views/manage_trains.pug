@@ -1,0 +1,19 @@
+extends manage_base.pug
+
+block above_the_table
+    div
+        h2 Trains
+        p Welcome to trains page
+
+block choose_default_open
+    a(href=`/metroadmin/cities/`)
+        button.tablinks(onclick="openCity(event, 'Cities')") Cities
+    button#defaultOpen.tablinks(onclick="openCity(event, 'Trains')") Trains
+    a(href=`/metroadmin/stations/`)
+        button.tablinks(onclick="openCity(event, 'Stations')") Stations
+    a(href=`/metroadmin/bookings/`)
+        button.tablinks(onclick="openCity(event, 'Bookings')") Bookings
+
+block content
+    #Trains.tabcontent
+        p Content of trains page 
