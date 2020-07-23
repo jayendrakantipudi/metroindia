@@ -1,5 +1,6 @@
 const { Trains } = require("../../models/train");
 const { Bookings } = require("../../models/booking");
+const { User } = require("../../models/User");
 const mongoose = require('mongoose');
 var City = mongoose.model('City');
 var CityStations = mongoose.model('CityStations');
@@ -12,14 +13,61 @@ router.get("/all", async(req, res) => {
     res.send(all_bookings);
 });
 
-router.post("/getBookings", async(req, res) => {
-    var bookings_avail = await Bookings.find({ "user_id": req.body.user_id });
+router.post("/getBook", async(req, res) => {
+    
+    
+    var bookings_avail = await Bookings.findOne({ "booking_code": req.body.book_id });
     if(bookings_avail.length == 0){
-        var message = "No bookings till now!";
-        res.send(message);
+        var json_obj = {};
+        json_obj["message"] = "No";
+        res.send(json_obj);
     }
     else{
-        res.send(bookings_avail);
+        var json_obj = {"bookings": bookings_avail};
+        json_obj["message"] = "Yes";
+        res.send(json_obj);
+    }
+});
+
+
+router.get("/ConfirmBooking/:BID", async(req, res) => {
+
+    var bookings_avail = await Bookings.find({ "booking_code": req.param.BID });
+    
+    if(!bookings_avail.valid){
+        var myquery = { "booking_code": req.param.BID };
+        var newvalues = { $set: {valid: true} };
+        Bookings.updateOne(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("Gateway Succesfull!");
+        });
+        res.send("Gateway Succesfull!")
+    }
+    else{
+        res.send("Gateway Unsuccesfull!")
+    }
+
+    
+});
+
+
+
+router.post("/getBookings", async(req, res) => {
+    
+    const get_user = await User.findOne({ email: req.body.email_id });
+    const user_id = get_user._id;
+    
+    var sort = {'createdAt': -1};
+    var bookings_avail = await Bookings.find({ "user_id": user_id }).sort(sort);
+    if(bookings_avail.length == 0){
+        var json_obj = {};
+        json_obj["message"] = "No";
+        res.send(json_obj);
+    }
+    else{
+        var json_obj = {"bookings": bookings_avail};
+        json_obj["message"] = "Yes";
+        res.send(json_obj);
     }
 });
 
@@ -35,7 +83,7 @@ router.post("/booktrain", async(req, res) => {
 
     const user_id = get_user._id;
 
-    let selected_train = await Trains.findOne({ _id: req.body.train_id });
+    let selected_train = await Trains.findOne({ code: req.body.train_id });
 
     let city = await City.findOne({ name: selected_train.city.name });
     let source = await CityStations.findOne({ name: req.body.from, "city.name": city.name });
@@ -71,7 +119,10 @@ router.post("/booktrain", async(req, res) => {
             cost: cost_to_travel,
             city: city,
             fromStation: source,
-            toStation: destination
+            toStation: destination,
+            valid: false,
+            start_time:selected_train.start_time,
+            end_time:selected_train.end_time
         });
 
         new_train.save();
@@ -81,3 +132,6 @@ router.post("/booktrain", async(req, res) => {
 
 
 module.exports = router;
+
+
+

@@ -14,6 +14,7 @@ const city = require("./routes/api/city");
 const city_stations = require("./routes/api/city_stations");
 const train = require("./routes/api/train");
 const booking = require("./routes/api/booking");
+const smartcard = require("./routes/api/smartcard");
 
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -55,8 +56,9 @@ require('./config/passport')(passport);
 
 app.use("/api/city", city);
 app.use("/api/station", city_stations);
-app.use("/api/train", train)
-app.use("/api/booking", booking)
+app.use("/api/train", train);
+app.use("/api/booking", booking);
+app.use("/api/smartcard", smartcard);
 
 
 const port = process.env.PORT || 5000;

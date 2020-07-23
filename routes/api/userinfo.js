@@ -126,6 +126,7 @@ router.get("/checking", async(req, res) => {
   res.send(users);
 })
 
+
 router.post("/register", async (req, res) => {
   console.log(req.file);
   console.log(req.body);
@@ -181,7 +182,7 @@ router.post("/register", async (req, res) => {
             text:
               "Hello,\n\n" +
               "Please verify your account by clicking the link: \n " +
-              "https://metrotest.herokuapp.com" + //Should be changed later http://localhost:5000
+              "http://localhost:5000" + //Should be changed later https://metrotest.herokuapp.com
               "/api/userinfo/confirmation/" +
               token +
               "\n"
@@ -196,12 +197,92 @@ router.post("/register", async (req, res) => {
               msg1: "A verification email has been sent to"
             });
           });
-          res.send("Please check your email to complete registration");
+          return res.send("Please check your email to complete registration");
         })
         .catch(err => console.log(err));
     });
   });
 });
+
+// router.post("/register", async (req, res) => {
+//   // console.log(req.file);
+//   console.log(req.body);
+
+//   const { error } = validate(req.body);
+
+//   if (error) {
+//     console.log(error.details[0].message);
+//     return res.send(error.details[0].message);
+//   }
+//   let isUser = await User.findOne({ email: req.body.email });
+//   if (isUser) {
+//     // errors.username = "Username already exists";
+//     return res.send("Email already exists");
+//   }
+
+//   isUser = await User.findOne({ email: req.body.email });
+//   if (isUser) {
+//     return res.send("An user already registered using above email");
+//   }
+
+//   let user = new User({
+//     username: req.body.username,
+//     firstname: req.body.firstname,
+//     lastname: req.body.lastname,
+//     email: req.body.email,
+//     password: req.body.password,
+//     // phoneno: req.body.phoneno,
+//     // gender: req.body.gender,
+//   });
+
+//   bcrypt.genSalt(10, (err, salt) => {
+//     bcrypt.hash(user.password, salt, (err, hash) => {
+//       if (err) throw err;
+//       user.password = hash;
+//       user
+//         .save()
+//         .then(user => {
+//           const token = user.generateAuthToken();
+//           var transporter = nodemailer.createTransport({
+//             host: "smtp.gmail.com",
+//             port: 465,
+//             secure: true, // use SSL
+//             auth: {
+//               user: "metroindia.pvtltd@gmail.com",
+//               pass: "metro@123"
+//             }
+//           });
+//           var mailOptions = {
+//             from: "no-reply@metro.com",
+//             to: user.email,
+//             subject: "Account Verification Token",
+//             text:
+//               "Hello,\n\n" +
+//               "Please verify your account by clicking the link: \n " +
+//               "http://localhost:5000"
+//                + //Should be changed later https://metrotest.herokuapp.com
+//               "/api/userinfo/confirmation/" +
+//               token +
+//               "\n"
+//           };
+//           transporter.sendMail(mailOptions, function(err) {
+//             if (err) {
+//               // return res.send({ msg: err.message });
+//               console.log(err.message );
+              
+//             }
+
+//             return res.render("msg", {
+//               msg: user.email,
+//               msg1: "A verification email has been sent to"
+//             });
+//           });
+//           return res.send("Please check your email to complete registration");
+//         })
+//         .catch(err => console.log(err));
+//     });
+//   });
+// });
 
 router.get("/confirmation/:token", async (req, res) => {
   const decoded = jwt.verify(req.params.token, config.get("jwtPrivateKey"));
@@ -242,19 +323,21 @@ router.get("/confirmation/:token", async (req, res) => {
 // @route   GET api/userinfo/current
 // @descrip Get Logged in user information
 // @access  Private
-router.get("/current", auth, async (req, res) => {
-  const user = await User.findById(req.user._id).select("-password");
+router.post("/current", async (req, res) => {
+  const user = await User.findOne({email:req.body.email}).select("-password");
+  console.log("User Details Request From Android!!");
+  
   res.send(user);
 });
 
 // @route   UPDATE api/userinfo/current
 // @descrip Get Logged in user information
 // @access  Private
-router.put("/editprofile", upload, auth, async (req, res) => {
+router.post("/editprofile", async (req, res) => {
   console.log(req.file);
   console.log(req.body);
 
-  const old_user = await User.findById(req.user._id).select("-password");
+  const old_user = await User.findOne({email:req.body.email}).select("-password");
 
   const newuser = {};
 
@@ -281,12 +364,12 @@ router.put("/editprofile", upload, auth, async (req, res) => {
 
   // console.log(newuser);
 
-  const user = await User.findById(req.user._id);
+  const user = await User.findOne({email:req.body.email});
   if (user) {
     //Update
     console.log("I am in right path");
     newone = await User.findOneAndUpdate(
-      { _id: req.user._id },
+      {email:req.body.email},
       { $set: newuser },
       { new: true }
     )
