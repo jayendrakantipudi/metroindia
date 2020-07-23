@@ -30,11 +30,14 @@ block content
             tbody  
                 each val, key in all_stations
                     tr
+                        mixin scode
+                            each val1, key1 in val  
+                                if key1 == "stationcode"
+                                    td #{val1}
+                        +scode
                         each val1, key1 in val  
-                            if key1 == "stationcode"
-                                td #{val1}
                             if key1 == "name"
-                                td #{val1}
+                                td #{val1} station
                             if key1 == "latitude"
                                 td #{val1}
                             if key1 == "longitude"

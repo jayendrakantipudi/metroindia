@@ -33,19 +33,22 @@ block content
             tbody
                 each val, key in all_trains
                     tr
+                    mixin city
+                        each val1, key1 in val
+                            if key1 == "city"
+                                td #{val1.name} city
                     each val1, key1 in val
                         if key1 == "code"
                             td #{val1}
                         if key1 == "capacity"
-                            td #{val1}
+                            td #{val1}                        
                         if key1 == "start_time"
-                            td #{val1 + "hrs"}
+                            td #{val1 + "hrs"}                        
                         if key1 == "end_time"
                             td #{val1 + "hrs"}
-                        if key1 == "city"
-                            td #{val1.name} city
+                            +city                       
                         if key1 == "stops"
-                            td #{val1} stops
+                            td #{val1}
                         if key1 == "fromStation"
                             td #{val1.name}
                         if key1 == "toStation"

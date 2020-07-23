@@ -17,7 +17,9 @@ router.get("/cities", async(req, res) => {
 router.get("/stations", async(req, res) => {
     var all_stations = await CityStations.find();
     console.log(all_stations);
-    res.render('manage_stations', {all_stations})
+    var station_code = await CityStations.find().select('stationcode');
+    console.log('Station codes are ' + station_code);
+    res.render('manage_stations', {all_stations, station_code})
 });
 
 router.get("/trains", async(req, res) => {
