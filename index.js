@@ -33,8 +33,8 @@ if (!config.get("jwtPrivateKey")) {
   process.exit(1);
 }
 
-// const MONGO_PORT = "mongodb+srv://jayendra:jayendra@metro-vfxr0.mongodb.net/test?retryWrites=true&w=majority";
-const MONGO_PORT = 'mongodb://localhost:27017/metro'
+const MONGO_PORT = "mongodb+srv://jayendra:jayendra@metro-vfxr0.mongodb.net/test?retryWrites=true&w=majority";
+// const MONGO_PORT = 'mongodb://localhost:27017/metro'
 
 
 
