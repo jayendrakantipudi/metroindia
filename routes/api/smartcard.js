@@ -1,6 +1,7 @@
-// const { SmartCard } = require("../../models/smartcard");
-var SmartCard = mongoose.model('SmartCard');
+const { SmartCard } = require("../../models/smartcard");
+
 const mongoose = require('mongoose');
+// var SmartCard = mongoose.model('SmartCard');
 var City = mongoose.model('City');
 const { User } = require("../../models/User");
 const express = require("express");
