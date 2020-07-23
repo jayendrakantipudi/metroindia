@@ -16,12 +16,23 @@ router.get("/all", async(req, res) => {
 router.post("/getCards", async(req, res) => {
     console.log('Coming from android!!')
 
-    let cards = await SmartCard.find({ user_email: req.body.email });
+    const city_name = req.body.city;
+    if(city_name == "all"){
+        const cards = await SmartCard.find({ user_email: req.body.email});
+        res.send(cards);    
+    }
+    else{
+        const cards = await SmartCard.find({ user_email: req.body.email, "city.name": city_name});
+        res.send(cards);
+    }
+    
 
-    res.send(cards);
+    
 
     
 });
+
+
 
 router.post("/buyCard", async(req, res) => {
 
@@ -83,7 +94,7 @@ router.post("/useCard", async(req, res) => {
 
     newone.save()
 
-    res.send(newone)
+    res.send(toSend)
 });
 
 
