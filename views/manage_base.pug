@@ -63,9 +63,10 @@ body
 .card
   .card-body
     block above_the_table
-      div
-        h2 Cities
-        p Welcome to cities page
+      .container.text-center
+        .row
+            .col-md-4.offset-md-4
+                button.btn.btn-info(type='button') Create new city
 
 
 .tab
@@ -80,16 +81,31 @@ body
 
 block content
   #Cities.tabcontent
-    h3 London
-    p London is the capital city of England.
-  #Trains.tabcontent
-    a(href='/stations')
-  #Stations.tabcontent
-    h3 Tokyo
-    p Tokyo is the capital of Japan.
-  #Bookings.tabcontent
-    h3 Tokyo
-    p Tokyo is the capital of Japan.  
+    table.table.table-bordered
+      thead
+        tr
+          th Name
+          th Latitute
+          th Longitude
+          th Citycode
+          th 
+          th
+      tbody  
+        each val, key in cities
+          tr
+            each val1, key1 in val  
+              if key1 == "name"
+                td #{val1}
+              if key1 == "latitude"
+                td #{val1}
+              if key1 == "longitude"
+                td #{val1}
+              if key1 == "citycode"
+                td #{val1}
+                td(width='6%')
+                  button.btn.btn-primary(type='button').btn-sm Update
+                td(width='6%')
+                  button.btn.btn-danger(type='button').btn-sm Remove
 script.
   function openCity(evt, cityName) {
   var i, tabcontent, tablinks;

@@ -1,9 +1,10 @@
 extends manage_base.pug
 
 block above_the_table
-    div
-        h2 Trains
-        p Welcome to trains page
+    .container.text-center
+        .row
+            .col-md-4.offset-md-4
+                button.btn.btn-info(type='button') Create new train
 
 block choose_default_open
     a(href=`/metroadmin/cities/`)
@@ -16,4 +17,41 @@ block choose_default_open
 
 block content
     #Trains.tabcontent
-        p Content of trains page 
+        table.table.table-bordered
+            thead
+                tr
+                    th Train code
+                    th Capacity
+                    th Start time
+                    th End time
+                    th City
+                    th Stops
+                    th Departing station
+                    th Arriving station
+                    th
+                    th
+            tbody
+                each val, key in all_trains
+                    tr
+                    each val1, key1 in val
+                        if key1 == "code"
+                            td #{val1}
+                        if key1 == "capacity"
+                            td #{val1}
+                        if key1 == "start_time"
+                            td #{val1 + "hrs"}
+                        if key1 == "end_time"
+                            td #{val1 + "hrs"}
+                        if key1 == "city"
+                            td #{val1.name} city
+                        if key1 == "stops"
+                            td #{val1} stops
+                        if key1 == "fromStation"
+                            td #{val1.name}
+                        if key1 == "toStation"
+                            td #{val1.name}    
+                            td(width='6%') 
+                                button.btn.btn-primary(type='button').btn-sm Update
+                            td(width='6%')
+                                button.btn.btn-danger(type='button').btn-sm Remove
+

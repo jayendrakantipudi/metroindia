@@ -9,21 +9,26 @@ const morgan = require('morgan');
 
 router.get("/cities", async(req, res) => {
     var cities = await City.find();
+    console.log(cities);
     res.render('manage_base', {cities});
 });
 
+
 router.get("/stations", async(req, res) => {
-    var all_stations = await CityStations.find({ "city.name": req.params.cityname });
+    var all_stations = await CityStations.find();
+    console.log(all_stations);
     res.render('manage_stations', {all_stations})
 });
 
 router.get("/trains", async(req, res) => {
     var all_trains = await Trains.find();
+    console.log(all_trains);
     res.render('manage_trains', {all_trains})
 });
 
 router.get("/bookings", async(req, res) => {
     var all_bookings = await Bookings.find();
+    console.log(all_bookings);
     res.render('manage_bookings', {all_bookings})
 });
 

@@ -1,9 +1,10 @@
 extends manage_base.pug
 
 block above_the_table
-    div
-        h2 Bookings
-        p Welcome to bookings page
+    .container.text-center
+        .row
+            .col-md-4.offset-md-4
+                button.btn.btn-info(type='button') Create new booking
 
 block choose_default_open
     a(href=`/metroadmin/cities/`)
