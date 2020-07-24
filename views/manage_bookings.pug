@@ -4,7 +4,8 @@ block above_the_table
     .container.text-center
         .row
             .col-md-4.offset-md-4
-                button.btn.btn-info(type='button') Create new booking
+                a(href=`/metroadmin/bookings/create`)
+                    button.btn.btn-info(type='button') Create new booking
 
 block choose_default_open
     a(href=`/metroadmin/cities/`)
@@ -17,4 +18,67 @@ block choose_default_open
 
 block content
     #Bookings.tabcontent
-        p Content of Bookings page 
+        table.table.table-bordered
+            thead
+                tr
+                th Booking code
+                th User Id
+                th Train Id
+                th Departing station
+                th Arriving station
+                th Number of tickets
+                th Cost
+                th Start time
+                th End time
+                th City
+                th Valid
+                th
+                th
+            tbody  
+                each val, key in all_bookings
+                    tr
+                        mixin departing    
+                            each val1, key1 in val          
+                                if key1 == "fromStation"
+                                    td #{val1.name}
+                        mixin arriving 
+                            each val1, key1 in val        
+                                if key1 == "toStation"
+                                    td #{val1.name}
+                        each val1, key1 in val  
+                            if key1 == "booking_code"
+                                td #{val1}
+                            if key1 == "user_id"
+                                td #{val1}
+                            if key1 == "train_id"
+                                td #{val1}    
+                        +departing
+                        +arriving
+                        mixin start 
+                            each val1, key1 in val        
+                                if key1 == "start_time"
+                                    td #{val1}
+                        mixin end 
+                            each val1, key1 in val        
+                                if key1 == "end_time"
+                                    td #{val1}
+                        each val1, key1 in val    
+                            if key1 == "ticket_num"
+                                td #{val1}
+                            if key1 == "cost"
+                                td #{val1}
+                        +start
+                        +end
+                        each val1, key1 in val
+                            if key1 == "city"
+                                td #{val1.name}
+                            if key1 == "valid"
+                                td #{val1} 
+                        each val1, key1 in val
+                            if key1 == "booking_code"                          
+                                td(width='6%')
+                                    a(href='/metroadmin/bookings/update/' + val1)
+                                        button.btn.btn-primary(type='button').btn-sm Update
+                                td(width='6%')
+                                    a(href='/metroadmin/bookings/delete/' + val1)
+                                        button.btn.btn-danger(type='button').btn-sm Remove

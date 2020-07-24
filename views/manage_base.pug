@@ -8,6 +8,12 @@ head
   script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js')
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js')
+
+  link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js')
+
   style.
     * {box-sizing: border-box}
     body {font-family: "Lato", sans-serif;}
@@ -54,6 +60,12 @@ head
     a:hover, u {
     text-decoration: none;
     }
+    input, select {
+      padding: 12px 20px;
+      height: 50px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
 body    
 .container-filled.text-center
   .jumbotron.p-3.bg-dark.text-white
@@ -67,7 +79,8 @@ body
       .container.text-center
         .row
             .col-md-4.offset-md-4
-                button.btn.btn-info(type='button') Create new city
+              a(href=`/metroadmin/cities/create`)
+                  button.btn.btn-info(type='button') Create new city
 
 
 .tab
@@ -86,7 +99,7 @@ block content
       thead
         tr
           th Name
-          th Latitute
+          th Latitude
           th Longitude
           th Citycode
           th 
@@ -104,9 +117,11 @@ block content
               if key1 == "citycode"
                 td #{val1}
                 td(width='6%')
-                  button.btn.btn-primary(type='button').btn-sm Update
+                  a(href='/metroadmin/cities/update/' + val1)
+                    button.btn.btn-primary(type='button').btn-sm Update
                 td(width='6%')
-                  button.btn.btn-danger(type='button').btn-sm Remove
+                  a(href='/metroadmin/cities/delete/' + val1)
+                    button.btn.btn-danger(type='button').btn-sm Remove
 script.
   function openCity(evt, cityName) {
   var i, tabcontent, tablinks;
