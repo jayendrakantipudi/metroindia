@@ -154,9 +154,11 @@ router.post("/register", async (req, res) => {
     lastname: req.body.lastname,
     email: req.body.email,
     password: req.body.password,
-    // phoneno: req.body.phoneno,
-    // gender: req.body.gender,
   });
+
+  // user.save();
+
+  res.send("User Succesfully Registered!")
 
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(user.password, salt, (err, hash) => {
@@ -165,40 +167,44 @@ router.post("/register", async (req, res) => {
       user
         .save()
         .then(user => {
-          const token = user.generateAuthToken();
-          var transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true, // use SSL
-            auth: {
-              user: "metroindia.pvtltd@gmail.com",
-              pass: "metro@123"
-            }
-          });
-          var mailOptions = {
-            from: "no-reply@metro.com",
-            to: user.email,
-            subject: "Account Verification Token",
-            text:
-              "Hello,\n\n" +
-              "Please verify your account by clicking the link: \n " +
-              "https://metrotest.herokuapp.com" +
-              // "http://localhost:5000" + //Should be changed later https://metrotest.herokuapp.com
-              "/api/userinfo/confirmation/" +
-              token +
-              "\n"
-          };
-          transporter.sendMail(mailOptions, function(err) {
-            if (err) {
-              return res.send({ msg: err.message });
-            }
 
-            return res.render("msg", {
-              msg: user.email,
-              msg1: "A verification email has been sent to"
-            });
-          });
-          return res.send("Please check your email to complete registration");
+          console.log("New User Saved!!");
+          
+
+          // const token = user.generateAuthToken();
+          // var transporter = nodemailer.createTransport({
+          //   host: "smtp.gmail.com",
+          //   port: 465,
+          //   secure: true, // use SSL
+          //   auth: {
+          //     user: "metroindia.pvtltd@gmail.com",
+          //     pass: "metro@123"
+          //   }
+          // });
+          // var mailOptions = {
+          //   from: "no-reply@metro.com",
+          //   to: user.email,
+          //   subject: "Account Verification Token",
+          //   text:
+          //     "Hello,\n\n" +
+          //     "Please verify your account by clicking the link: \n " +
+          //     "https://metrotest.herokuapp.com" +
+          //     // "http://localhost:5000" + //Should be changed later https://metrotest.herokuapp.com
+          //     "/api/userinfo/confirmation/" +
+          //     token +
+          //     "\n"
+          // };
+          // transporter.sendMail(mailOptions, function(err) {
+          //   if (err) {
+          //     return res.send({ msg: err.message });
+          //   }
+
+          //   return res.render("msg", {
+          //     msg: user.email,
+          //     msg1: "A verification email has been sent to"
+          //   });
+          // });
+          // return res.send("Please check your email to complete registration");
         })
         .catch(err => console.log(err));
     });
