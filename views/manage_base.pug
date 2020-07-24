@@ -1,0 +1,140 @@
+doctype html
+head
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  title Admin Management
+  meta(charset='utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js')
+
+  link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js')
+
+  style.
+    * {box-sizing: border-box}
+    body {font-family: "Lato", sans-serif;}
+    /* Style the tab */
+    .tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 10%;
+    height: 300px;
+    }
+    /* Style the buttons inside the tab */
+    .tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+    }
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+    background-color: #ddd;
+    }
+    /* Create an active/current "tab button" class */
+    .tab button.active {
+    background-color: #ccc;
+    }
+    /* Style the tab content */
+    .tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 90%;
+    border-left: none;
+    height: 300px;
+    border:none;
+    }
+    a:hover, u {
+    text-decoration: none;
+    }
+    input, select {
+      padding: 12px 20px;
+      height: 50px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
+body    
+.container-filled.text-center
+  .jumbotron.p-3.bg-dark.text-white
+    h1 Metro admin management
+    p
+      | Select the tabs aside to manage trains, stations, cities, bookings.
+
+.card(style='border:none;')
+  .card-body
+    block above_the_table
+      .container.text-center
+        .row
+            .col-md-4.offset-md-4
+              a(href=`/metroadmin/cities/create`)
+                  button.btn.btn-info(type='button') Create new city
+
+
+.tab
+  block choose_default_open
+    button#defaultOpen.tablinks(onclick="openCity(event, 'Cities')") Cities
+    a(href=`/metroadmin/trains/`)
+      button.tablinks(onclick="openCity(event, 'Trains')") Trains
+    a(href=`/metroadmin/stations/`)
+      button.tablinks(onclick="openCity(event, 'Stations')") Stations
+    a(href=`/metroadmin/bookings/`)
+      button.tablinks(onclick="openCity(event, 'Bookings')") Bookings
+
+block content
+  #Cities.tabcontent
+    table.table.table-bordered
+      thead
+        tr
+          th Name
+          th Latitude
+          th Longitude
+          th Citycode
+          th 
+          th
+      tbody  
+        each val, key in cities
+          tr
+            each val1, key1 in val  
+              if key1 == "name"
+                td #{val1}
+              if key1 == "latitude"
+                td #{val1}
+              if key1 == "longitude"
+                td #{val1}
+              if key1 == "citycode"
+                td #{val1}
+                td(width='6%')
+                  a(href='/metroadmin/cities/update/' + val1)
+                    button.btn.btn-primary(type='button').btn-sm Update
+                td(width='6%')
+                  a(href='/metroadmin/cities/delete/' + val1)
+                    button.btn.btn-danger(type='button').btn-sm Remove
+script.
+  function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+  tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+  tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+  }
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();

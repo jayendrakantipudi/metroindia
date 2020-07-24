@@ -1,0 +1,49 @@
+extends manage_base.pug
+
+block above_the_table
+    .container.text-center
+        if message
+            .alert.alert-warning
+                strong Warning! #{message}
+
+block choose_default_open
+    a(href=`/metroadmin/cities/`)
+        button.tablinks(onclick="openCity(event, 'Cities')") Cities
+    a(href=`/metroadmin/trains/`)
+        button.tablinks(onclick="openCity(event, 'Trains')") Trains
+    button#defaultOpen.tablinks(onclick="openCity(event, 'Stations')") Stations
+    a(href=`/metroadmin/bookings/`)
+        button.tablinks(onclick="openCity(event, 'Bookings')") Bookings
+
+block content
+    #Stations.tabcontent
+        .container
+        h2 Create new station
+        form(action=`/metroadmin/stations/create` method='POST')
+            .row
+                .col(style= 'padding: 13px;')
+                    select.selectpicker(title='Choose city', name="cityname" data-width="100%" )
+                        each val, key in cities
+                            tr
+                                each val1, key1 in val  
+                                    if key1 == "name"
+                                        option #{val1}                        
+                .col
+                    input.form-control(type='text', placeholder='Enter station name', name='name')
+                .col
+                    input.form-control(type='text', placeholder='Enter station code', name='stationcode')
+            br
+            .row
+                .col
+                    input.form-control(type='text', placeholder='Enter the latitude of the city', name='latitude')
+                .col
+                    input.form-control(type='text', placeholder='Enter the longitude of the city', name='longitude')
+                
+            br
+            .row.center   
+                .col
+                    button.btn.btn-primary.btn-lg(type='submit') Submit
+                .col
+                    a(href=`/metroadmin/stations/`)
+                        button.btn.btn-secondary.btn-lg(type='button') Go Back
+        
