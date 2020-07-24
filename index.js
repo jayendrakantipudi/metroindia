@@ -16,6 +16,7 @@ const train = require("./routes/api/train");
 const booking = require("./routes/api/booking");
 const metroadmin = require("./routes/api/metroadmin");
 const morgan = require('morgan')
+const smartcard = require("./routes/api/smartcard");
 
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -68,6 +69,8 @@ app.use("/api/booking", booking);
 
 
 app.use("/metroadmin", metroadmin);
+app.use("/api/smartcard", smartcard);
+
 
 
 const port = process.env.PORT || 5000;

@@ -29,6 +29,7 @@ router.post("/getTrains", async(req, res) => {
         for (let i = 0; i < trains_avail.length; i++) {
             var element = trains_avail[i];
             var stops_array = element.stops;
+            
             var src_ind = stops_array.indexOf(src_name);
             var dest_ind = stops_array.indexOf(dest_name);
             if(src_ind < dest_ind){
