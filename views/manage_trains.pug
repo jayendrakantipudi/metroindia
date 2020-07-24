@@ -1,0 +1,65 @@
+extends manage_base.pug
+
+block above_the_table
+    .container.text-center
+        .row
+            .col-md-4.offset-md-4
+                a(href=`/metroadmin/trains/create`)
+                    button.btn.btn-info(type='button') Create new train
+
+block choose_default_open
+    a(href=`/metroadmin/cities/`)
+        button.tablinks(onclick="openCity(event, 'Cities')") Cities
+    button#defaultOpen.tablinks(onclick="openCity(event, 'Trains')") Trains
+    a(href=`/metroadmin/stations/`)
+        button.tablinks(onclick="openCity(event, 'Stations')") Stations
+    a(href=`/metroadmin/bookings/`)
+        button.tablinks(onclick="openCity(event, 'Bookings')") Bookings
+
+block content
+    #Trains.tabcontent
+        table.table.table-bordered
+            thead
+                tr
+                    th Train code
+                    th Capacity
+                    th Start time
+                    th End time
+                    th City
+                    th Stops
+                    th Departing station
+                    th Arriving station
+                    th
+                    th
+            tbody
+                each val, key in all_trains
+                    tr
+                    mixin city
+                        each val1, key1 in val
+                            if key1 == "city"
+                                td #{val1.name} city
+                    each val1, key1 in val
+                        if key1 == "code"
+                            td #{val1}
+                        if key1 == "capacity"
+                            td #{val1}                        
+                        if key1 == "start_time"
+                            td #{val1 + "hrs"}                        
+                        if key1 == "end_time"
+                            td #{val1 + "hrs"}
+                            +city                       
+                        if key1 == "stops"
+                            td #{val1}
+                        if key1 == "fromStation"
+                            td #{val1.name}
+                        if key1 == "toStation"
+                            td #{val1.name}
+                    each val1, key1 in val
+                        if key1 == "code"      
+                            td(width='6%')
+                                a(href='/metroadmin/trains/update/' + val1)
+                                    button.btn.btn-primary(type='button').btn-sm Update
+                            td(width='6%')
+                                a(href='/metroadmin/trains/delete/' + val1)
+                                    button.btn.btn-danger(type='button').btn-sm Remove
+

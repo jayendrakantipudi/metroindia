@@ -1,0 +1,55 @@
+extends manage_base.pug
+
+block above_the_table
+    .container.text-center
+        .row
+            .col-md-4.offset-md-4
+                a(href=`/metroadmin/stations/create`)
+                    button.btn.btn-info(type='button') Create new station
+
+block choose_default_open
+    a(href=`/metroadmin/cities/`)
+        button.tablinks(onclick="openCity(event, 'Cities')") Cities
+    a(href=`/metroadmin/trains/`)
+        button.tablinks(onclick="openCity(event, 'Trains')") Trains
+    button#defaultOpen.tablinks(onclick="openCity(event, 'Stations')") Stations
+    a(href=`/metroadmin/bookings/`)
+        button.tablinks(onclick="openCity(event, 'Bookings')") Bookings
+
+block content
+    #Stations.tabcontent
+        table.table.table-bordered
+            thead
+                tr
+                    th Station Code
+                    th Name
+                    th Latitute
+                    th Longitude
+                    th City
+                    th 
+                    th
+            tbody  
+                each val, key in all_stations
+                    tr
+                        mixin scode
+                            each val1, key1 in val  
+                                if key1 == "stationcode"
+                                    td #{val1}
+                        +scode
+                        each val1, key1 in val  
+                            if key1 == "name"
+                                td #{val1} station
+                            if key1 == "latitude"
+                                td #{val1}
+                            if key1 == "longitude"
+                                td #{val1}
+                            if key1 == "city"
+                                td #{val1[0].name}
+                        each val1, key1 in val  
+                            if key1 == "stationcode"       
+                                td(width='6%')
+                                    a(href='/metroadmin/stations/update/'+ val1)
+                                        button.btn.btn-primary(type='button').btn-sm Update
+                                td(width='6%')
+                                    a(href='/metroadmin/stations/delete/'+ val1)
+                                        button.btn.btn-danger(type='button').btn-sm Remove

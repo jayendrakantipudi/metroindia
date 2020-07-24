@@ -1,0 +1,38 @@
+extends manage_base.pug
+
+block above_the_table
+    .container.text-center
+        if message
+            .alert.alert-warning
+                strong Warning! #{message}
+
+block choose_default_open
+    button#defaultOpen.tablinks(onclick="openCity(event, 'Cities')") Cities
+    a(href=`/metroadmin/trains/`)
+        button.tablinks(onclick="openCity(event, 'Trains')") Trains
+    a(href=`/metroadmin/stations/`)
+        button.tablinks(onclick="openCity(event, 'Stations')") Stations
+    a(href=`/metroadmin/bookings/`)
+        button.tablinks(onclick="openCity(event, 'Bookings')") Bookings
+
+block content
+    #Cities.tabcontent
+        .container
+        h2 Update city
+        form(action='/metroadmin/cities/update/'+city[0].citycode method='POST')
+            .row
+                .col
+                    input.form-control(type='text', placeholder='Enter name of the city', name='name', value= city[0].name)
+                .col
+                    input.form-control(type='text', placeholder='Enter city code', name='citycode', value= city[0].citycode)
+            .row
+                .col
+                    input.form-control(type='text', placeholder='Enter the latitude of the city', name='latitude', value=city[0].latitude)
+                .col
+                    input.form-control(type='text', placeholder='Enter the longitude of the city', name='longitude', value= city[0].longitude)
+            .row.center   
+                .col
+                    button.btn.btn-primary.btn-lg(type='submit') Submit
+                .col
+                    a(href=`/metroadmin/cities/`)
+                        button.btn.btn-secondary.btn-lg(type='button') Go Back

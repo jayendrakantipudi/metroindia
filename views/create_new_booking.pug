@@ -1,0 +1,59 @@
+extends manage_base.pug
+
+block above_the_table
+    .container.text-center
+        if message
+            .alert.alert-warning
+                strong Warning! #{message}
+
+block choose_default_open
+    a(href=`/metroadmin/cities/`)
+        button.tablinks(onclick="openCity(event, 'Cities')") Cities
+    a(href=`/metroadmin/trains/`)
+        button.tablinks(onclick="openCity(event, 'Trains')") Trains
+    a(href=`/metroadmin/stations/`)
+        button.tablinks(onclick="openCity(event, 'Stations')") Stations
+    button#defaultOpen.tablinks(onclick="openCity(event, 'Bookings')") Bookings
+
+block content
+    #Bookings.tabcontent
+        .container
+        h2 Create new booking
+        form(action=`/metroadmin/bookings/create` method='POST')
+            .row
+                .col
+                    input.form-control(type='text', placeholder='Enter train code', name='train_id')
+                .col
+                    input.form-control(type='email', placeholder='Enter email', name='email')
+                .col(style= 'padding: 10px;')
+                    select.selectpicker(title='Choose city', name="cityname" data-width="100%")
+                        each val, key in cities
+                            tr
+                                each val1, key1 in val  
+                                    if key1 == "name"
+                                        option #{val1}                        
+            br
+            .row
+                .col(style= 'padding: 10px;')
+                    select#first.selectpicker(title='Choose the departing station', name="from" data-width="100%")
+                        each val, key in stations
+                            tr
+                                each val1, key1 in val  
+                                    if key1 == "name"
+                                        option #{val1}
+                .col(style= 'padding: 10px;')
+                    select#last.selectpicker(title='Choose the arriving station', name="to" data-width="100%")
+                        each val, key in stations
+                            tr
+                                each val1, key1 in val  
+                                    if key1 == "name"
+                                        option #{val1}
+                .col
+                    input.form-control(type='text', placeholder='Enter the number of tickets', name='ticket_num')
+            br
+            .row.center   
+                .col
+                    button.btn.btn-primary.btn-lg(type='submit') Submit
+                .col
+                    a(href=`/metroadmin/bookings/`)
+                        button.btn.btn-secondary.btn-lg(type='button') Go Back
