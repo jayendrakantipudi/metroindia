@@ -158,7 +158,7 @@ router.post("/register", async (req, res) => {
 
   // user.save();
 
-  res.send("User Succesfully Registered!")
+  
 
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(user.password, salt, (err, hash) => {
@@ -209,6 +209,7 @@ router.post("/register", async (req, res) => {
         .catch(err => console.log(err));
     });
   });
+  res.send("User Succesfully Registered!")
 });
 
 // router.post("/register", async (req, res) => {
