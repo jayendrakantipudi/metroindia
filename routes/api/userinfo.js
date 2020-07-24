@@ -128,7 +128,7 @@ router.get("/checking", async(req, res) => {
 
 
 router.post("/register", async (req, res) => {
-  console.log(req.file);
+  // console.log(req.file);
   console.log(req.body);
 
   const { error } = validate(req.body);
@@ -182,20 +182,21 @@ router.post("/register", async (req, res) => {
             text:
               "Hello,\n\n" +
               "Please verify your account by clicking the link: \n " +
-              "https://metrotest.herokuapp.com" + //Should be changed later http://localhost:5000
+              "https://metrotest.herokuapp.com" +
+              // "http://localhost:5000" + //Should be changed later https://metrotest.herokuapp.com
               "/api/userinfo/confirmation/" +
               token +
               "\n"
           };
           transporter.sendMail(mailOptions, function(err) {
-            if (err) {
-              return res.status(500).send({ msg: err.message });
-            }
+            // if (err) {
+            //   return res.status(500).send({ msg: err.message });
+            // }
 
-            return res.render("msg", {
-              msg: user.email,
-              msg1: "A verification email has been sent to"
-            });
+            // return res.render("msg", {
+            //   msg: user.email,
+            //   msg1: "A verification email has been sent to"
+            // });
           });
           return res.send("Please check your email to complete registration");
         })
