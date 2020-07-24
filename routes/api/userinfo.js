@@ -190,7 +190,7 @@ router.post("/register", async (req, res) => {
           };
           transporter.sendMail(mailOptions, function(err) {
             if (err) {
-              return res.status(500).send({ msg: err.message });
+              return res.send({ msg: err.message });
             }
 
             return res.render("msg", {
