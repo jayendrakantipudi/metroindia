@@ -193,10 +193,10 @@ router.post("/register", async (req, res) => {
             //   return res.status(500).send({ msg: err.message });
             // }
 
-            // return res.render("msg", {
-            //   msg: user.email,
-            //   msg1: "A verification email has been sent to"
-            // });
+            return res.render("msg", {
+              msg: user.email,
+              msg1: "A verification email has been sent to"
+            });
           });
           return res.send("Please check your email to complete registration");
         })
